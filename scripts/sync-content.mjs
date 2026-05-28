@@ -3,8 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const meetupToken = process.env.MEETUP_TOKEN;
-const meetupNetworkUrlname = process.env.MEETUP_NETWORK_URLNAME;
+const meetupToken = process.env.MEETUP_TOKEN; // optional – needed if group is private
+const meetupUrlname = process.env.MEETUP_URLNAME ?? 'brusergroups';
 const sessionizeEventId = process.env.SESSIONIZE_EVENT_ID;
 const sessionizeApiBase = process.env.SESSIONIZE_API_BASE ?? 'https://sessionize.com/api/v2';
 
@@ -40,16 +40,17 @@ function stripHtml(value) {
     .trim();
 }
 
-function normalizeMeetupEvent(node) {
+function normalizeMeetupEventGql(node, groupName, isPast) {
+  const startsAt = node.dateTime ?? null;
   return {
-    id: String(node.id ?? node.title ?? crypto.randomUUID()),
+    id: String(node.id ?? crypto.randomUUID()),
     title: node.title ?? 'Untitled event',
-    url: node.eventUrl ?? node.url ?? 'https://www.meetup.com/',
-    startsAt: node.dateTime ?? null,
-    summary: stripHtml(node.description) || 'Meetup event details will appear here.',
-    organizer: node.group?.name ?? 'BRSSUG',
+    url: node.eventUrl ?? `https://www.meetup.com/${meetupUrlname}/events/`,
+    startsAt,
+    summary: stripHtml(node.description) || 'See Meetup for event details.',
+    organizer: groupName ?? 'BRSSUG',
     type: 'meetup',
-    status: 'scheduled'
+    status: isPast ? 'past' : 'scheduled'
   };
 }
 
@@ -77,48 +78,53 @@ function normalizeSession(item) {
 }
 
 async function fetchMeetupEvents() {
-  if (!meetupToken || !meetupNetworkUrlname) {
-    return null;
+  if (!meetupToken) {
+    return null; // no token → keep existing seed data
   }
 
   const query = `
-    query ($urlname: ID!) {
-      proNetwork(urlname: $urlname) {
-        eventsSearch(input: { first: 20, filter: { status: "UPCOMING" } }) {
-          edges {
-            node {
-              id
-              title
-              eventUrl
-              description
-              dateTime
-              group {
-                name
-                urlname
-              }
-            }
-          }
+    query($urlname: String!) {
+      groupByUrlname(urlname: $urlname) {
+        name
+        upcomingEvents(input: { first: 5 }) {
+          edges { node { id title eventUrl description dateTime } }
+        }
+        pastEvents(input: { first: 10 }) {
+          edges { node { id title eventUrl description dateTime } }
         }
       }
     }
   `;
 
-  const response = await fetch('https://api.meetup.com/gql-ext', {
+  const response = await fetch('https://api.meetup.com/gql', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${meetupToken}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ query, variables: { urlname: meetupNetworkUrlname } })
+    body: JSON.stringify({ query, variables: { urlname: meetupUrlname } })
   });
 
   if (!response.ok) {
-    throw new Error(`Meetup request failed with ${response.status}`);
+    throw new Error(`Meetup API failed with ${response.status}`);
   }
 
   const payload = await response.json();
-  const edges = payload?.data?.proNetwork?.eventsSearch?.edges ?? [];
-  return edges.map((edge) => normalizeMeetupEvent(edge.node)).filter((event) => event.title);
+  if (payload.errors) {
+    throw new Error(payload.errors.map((e) => e.message).join(', '));
+  }
+
+  const group = payload?.data?.groupByUrlname;
+  if (!group) throw new Error('Group not found in Meetup API response');
+
+  const upcoming = (group.upcomingEvents?.edges ?? []).map((e) =>
+    normalizeMeetupEventGql(e.node, group.name, false)
+  );
+  const past = (group.pastEvents?.edges ?? []).map((e) =>
+    normalizeMeetupEventGql(e.node, group.name, true)
+  );
+
+  return [...upcoming, ...past].filter((e) => e.title);
 }
 
 async function fetchSessionizeCollection(eventId, endpointNames) {
