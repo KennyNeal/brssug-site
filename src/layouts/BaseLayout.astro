@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import { siteData } from '../lib/data';
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = siteData.title,
+  description = siteData.description
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/brssug-icon.png" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="/">
+          <img src="/brssug-logo.png" alt="BRSSUG – Baton Rouge SQL Server User Group" class="site-logo" />
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/events/">Events</a>
+          <a href="/speakers/">Speakers</a>
+          <a href="/about/">About</a>
+          <a href="/call-for-speakers/">Speak</a>
+          <a href="/contact/">Contact</a>
+          <a class="nav-cta" href={siteData.meetupUrl} target="_blank" rel="noreferrer">Join on Meetup</a>
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <a class="footer-brand-link" href="/">
+            <span class="footer-brand-name">{siteData.brand}</span>
+            <span class="footer-brand-full">{siteData.fullName}</span>
+          </a>
+          <p class="footer-tagline">{siteData.meetingSchedule}</p>
+          <p class="footer-tagline">Streamed &amp; recorded on <a href={siteData.youtubeUrl} target="_blank" rel="noreferrer" class="footer-link">YouTube</a></p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+          <div class="footer-col">
+            <p class="footer-col-title">Group</p>
+            <a href="/events/">Events</a>
+            <a href="/speakers/">Speakers</a>
+            <a href="/about/">About</a>
+            <a href="/location/">Location</a>
+            <a href="/jobs/">Jobs</a>
+            <a href="/calendar/">Event Calendar</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Participate</p>
+            <a href="/call-for-speakers/">Call for Speakers</a>
+            <a href="/sponsorship/">Sponsorship</a>
+            <a href="/contact/">Contact &amp; Social</a>
+            <a href={`mailto:${siteData.contactEmail}`}>Email organizers</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Community</p>
+            <a href={siteData.meetupUrl} target="_blank" rel="noreferrer">Meetup</a>
+            <a href={siteData.sessionizeUrl} target="_blank" rel="noreferrer">Sessionize</a>
+            <a href={siteData.youtubeUrl} target="_blank" rel="noreferrer">YouTube</a>
+            <a href="/code-of-conduct/">Code of Conduct</a>
+            <a href="http://www.sqlsatbr.com/" target="_blank" rel="noreferrer">SQL Saturday BR</a>
+          </div>
+        </nav>
+        <p class="footer-sync">Last synced {new Date(siteData.lastSyncedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "thomas-leblanc",
+    "name": "Thomas LeBlanc",
+    "tagline": "Data Warehouse Architect / Microsoft Data Platform MVP · Data on the Geaux",
+    "bio": "Thomas LeBlanc is a Microsoft Data Platform MVP with 15+ years as a Data Warehouse Manager and Business Intelligence Architect in Baton Rouge, LA, plus 15+ years as a DBA specializing in SQL Server, SSIS, SSAS, SSRS, and Power BI. He started as a COBOL developer at Louisiana State University and has since worked as a developer, report writer, trainer, and documentation writer. Thomas is a frequent speaker at PASS Summit, SQLSaturday, Live360, VSLive, and Power Platform events, and has been recognized as a Data Platform MVP for the past 5 years.",
+    "profilePicture": "",
+    "sessions": [
+      {
+        "title": "Enhancing Power BI with Copilot",
+        "startsAt": "2026-01-14T18:00:00.000-06:00",
+        "eventTitle": "BRSSUG January 2026 Meeting"
+      }
+    ]
+  },
+  {
+    "id": "seed-speaker-open",
+    "name": "Want to speak at BRSSUG?",
+    "tagline": "We welcome speakers of all experience levels on SQL Server, .NET, Azure, Power BI, and related topics.",
+    "bio": "BRSSUG hosts monthly meetings and is always looking for local and remote speakers. Whether you have a polished talk or an idea you want to explore in front of a friendly audience, reach out to us on Meetup.",
+    "profilePicture": "",
+    "sessions": []
+  }
+]

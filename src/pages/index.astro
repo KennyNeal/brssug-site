@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventCard from '../components/EventCard.astro';
+import SpeakerCard from '../components/SpeakerCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { meetupEvents, siteData, speakers } from '../lib/data';
+import { formatDateTime } from '../lib/format';
+
+const upcomingEvents = meetupEvents.filter(e => e.status !== 'past').slice(0, 2);
+const nextEvent = upcomingEvents[0] ?? null;
+const featuredSpeakers = speakers.slice(0, 2);
+---
+
+<BaseLayout title={siteData.title}>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">SQL Server · .NET · Data Platform</p>
+        <h1>Baton Rouge's community for data & .NET pros.</h1>
+        <p>
+          BRSSUG meets monthly at Jones Creek Regional Library for technical talks,
+          demos, and community connection. Free and open to everyone.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href={siteData.meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+          <a class="button-secondary" href="/events/">View schedule</a>
+        </div>
+        <p class="hero-stream-note">
+          📹 Can't make it in person? We stream and record every meeting on <a href={siteData.youtubeUrl} target="_blank" rel="noreferrer">YouTube</a>.
+        </p>
+      </div>
+
+      <aside class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">When</span>
+          <span class="meta-value">{siteData.meetingSchedule}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Where</span>
+          <span class="meta-value">Jones Creek Regional Library</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Cost</span>
+          <span class="meta-value">Free · RSVP encouraged</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Online</span>
+          <span class="meta-value">Live streamed on YouTube</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {nextEvent && (
+    <div class="next-meeting-strip">
+      <div class="next-meeting-label">Next meeting</div>
+      <div class="next-meeting-body">
+        <span class="next-meeting-date">{formatDateTime(nextEvent.startsAt)}</span>
+        <span class="next-meeting-divider">·</span>
+        <span class="next-meeting-title">{nextEvent.title}</span>
+        <span class="next-meeting-divider">·</span>
+        <span class="next-meeting-venue">Jones Creek Regional Library</span>
+      </div>
+      <div class="next-meeting-actions">
+        <a href={nextEvent.url} target="_blank" rel="noreferrer" class="next-meeting-rsvp">
+          RSVP on Meetup — helps us get the food order right!
+        </a>
+      </div>
+    </div>
+  )}
+
+  <section class="panel stack">
+    <SectionHeading
+      eyebrow="Upcoming"
+      title="Next meetings"
+      text="RSVP on Meetup to get reminders and stay up to date on session details."
+    />
+    <div class="cards-grid">
+      {upcomingEvents.length > 0
+        ? upcomingEvents.map((event) => <EventCard event={event} />)
+        : <p class="empty-state">No upcoming meetings posted yet. Check <a href={siteData.meetupUrl} target="_blank" rel="noreferrer">Meetup</a> for the latest.</p>
+      }
+    </div>
+  </section>
+
+  <section class="panel about-panel">
+    <SectionHeading
+      eyebrow="About"
+      title="What is BRSSUG?"
+      text=""
+    />
+    <div class="about-grid">
+      <p>
+        The Baton Rouge SQL Server &amp; .NET User Group has been connecting local
+        technology professionals for years. We're a free, community-run group
+        focused on SQL Server, Azure data platform, Power BI, .NET, and related
+        Microsoft technologies.
+      </p>
+      <p>
+        Meetings feature presentations from local experts and Microsoft MVPs,
+        followed by open discussion and networking. Whether you're a seasoned
+        DBA, a .NET developer, or just getting started — you're welcome here.
+      </p>
+    </div>
+    <div class="topic-chips">
+      {['SQL Server', 'Azure SQL', 'Power BI', '.NET', 'Azure Data Factory', 'SSIS / SSRS', 'Data Modeling', 'Copilot & AI'].map(t => (
+        <span class="chip">{t}</span>
+      ))}
+    </div>
+  </section>
+
+  <section class="panel stack">
+    <SectionHeading
+      eyebrow="Speakers"
+      title="Past & upcoming speakers"
+      text="BRSSUG regularly features Microsoft MVPs and local experts. Interested in presenting? Reach out on Meetup."
+    />
+    <div class="cards-grid">
+      {featuredSpeakers.map((speaker) => <SpeakerCard speaker={speaker} />)}
+    </div>
+  </section>
+</BaseLayout>

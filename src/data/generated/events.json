@@ -1,0 +1,23 @@
+[
+  {
+    "id": "event-jan-2026",
+    "title": "Enhancing Power BI with Copilot",
+    "url": "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/events/308482070/",
+    "startsAt": "2026-01-14T18:00:00.000-06:00",
+    "summary": "Copilot in Power BI streamlines data modeling and report-building through intelligent suggestions, natural language query generation, and context-aware insights. Developers can describe desired outcomes in plain English and Copilot will generate DAX formulas, visuals, and entire report structures.",
+    "organizer": "BRSSUG",
+    "type": "meetup",
+    "status": "past",
+    "recordingUrl": "https://youtu.be/OH118WCxEk4?si=GF8Rck1vv5NOTd7-"
+  },
+  {
+    "id": "seed-meetup-next",
+    "title": "BRSSUG Monthly Meeting",
+    "url": "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/",
+    "startsAt": "2026-06-11T18:00:00.000-05:00",
+    "summary": "Join us for the next BRSSUG monthly meeting at Jones Creek Regional Library. Session details and speaker info will be posted on Meetup closer to the event.",
+    "organizer": "BRSSUG",
+    "type": "meetup",
+    "status": "scheduled"
+  }
+]

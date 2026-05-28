@@ -1,0 +1,25 @@
+---
+import { formatDateTime } from '../lib/format';
+import type { MeetupEvent } from '../lib/types';
+
+type Props = {
+  event: MeetupEvent;
+};
+
+const { event } = Astro.props as Props;
+---
+
+<article class="card event-card">
+  <p class="card-kicker">{event.organizer}</p>
+  <h3>{event.title}</h3>
+  <p class="card-meta">{formatDateTime(event.startsAt)}</p>
+  <p>{event.summary}</p>
+  <div class="card-links">
+    <a class="card-link" href={event.url} target="_blank" rel="noreferrer">View on Meetup</a>
+    {event.recordingUrl && (
+      <a class="card-link card-link--youtube" href={event.recordingUrl} target="_blank" rel="noreferrer">
+        ▶ Watch recording
+      </a>
+    )}
+  </div>
+</article>

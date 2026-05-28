@@ -1,0 +1,35 @@
+---
+import { formatDateTime } from '../lib/format';
+import type { Speaker } from '../lib/types';
+
+type Props = {
+  speaker: Speaker;
+};
+
+const { speaker } = Astro.props as Props;
+---
+
+<article class="card speaker-card">
+  <div class="speaker-topline">
+    <div class="speaker-avatar" aria-hidden="true">{speaker.name.slice(0, 1)}</div>
+    <div>
+      <p class="card-kicker">Sessionize</p>
+      <h3>{speaker.name}</h3>
+    </div>
+  </div>
+
+  <p class="card-meta">{speaker.tagline}</p>
+  <p>{speaker.bio}</p>
+
+  {speaker.sessions.length > 0 && (
+    <ul class="session-list">
+      {speaker.sessions.map((session) => (
+        <li>
+          <strong>{session.title}</strong>
+          <span>{formatDateTime(session.startsAt)}</span>
+          <span>{session.eventTitle}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</article>

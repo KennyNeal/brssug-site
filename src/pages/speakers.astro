@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpeakerCard from '../components/SpeakerCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { siteData, speakers } from '../lib/data';
+---
+
+<BaseLayout title={`${siteData.brand} | Speakers`}>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Speakers</p>
+        <h1>BRSSUG presenters</h1>
+        <p>
+          BRSSUG features Microsoft MVPs, local experts, and community members presenting on
+          SQL Server, Azure, Power BI, .NET, and more. Interested in presenting? Let us know on Meetup.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href={siteData.meetupUrl} target="_blank" rel="noreferrer">Get in touch on Meetup</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel stack">
+    <SectionHeading
+      eyebrow="Profiles"
+      title="Speakers"
+      text="Speaker details sync from Sessionize. Past and upcoming presenters appear below."
+    />
+    <div class="cards-grid">
+      {speakers.map((speaker) => <SpeakerCard speaker={speaker} />)}
+    </div>
+  </section>
+</BaseLayout>

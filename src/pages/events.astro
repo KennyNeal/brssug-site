@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventCard from '../components/EventCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { meetupEvents, siteData } from '../lib/data';
+
+const upcoming = meetupEvents.filter(e => e.status !== 'past');
+const past = meetupEvents.filter(e => e.status === 'past');
+---
+
+<BaseLayout title={`${siteData.brand} | Events`}>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Schedule</p>
+        <h1>Upcoming meetings</h1>
+        <p>
+          BRSSUG meets the second Wednesday of each month at 6:00 PM at Jones Creek Regional Library, Baton Rouge.
+          RSVPs are on Meetup — you'll get reminders and speaker announcements there.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href={siteData.meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+        </div>
+      </div>
+      <aside class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">When</span>
+          <span class="meta-value">{siteData.meetingSchedule}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Where</span>
+          <span class="meta-value">{siteData.location}</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {upcoming.length > 0 && (
+    <section class="panel stack">
+      <SectionHeading
+        eyebrow="Upcoming"
+        title="Next meetings"
+        text="Session details and speakers are announced on Meetup closer to each event."
+      />
+      <div class="cards-grid">
+        {upcoming.map((event) => <EventCard event={event} />)}
+      </div>
+    </section>
+  )}
+
+  {past.length > 0 && (
+    <section class="panel stack">
+      <SectionHeading
+        eyebrow="Archive"
+        title="Past meetings"
+        text="Previous sessions and speaker presentations."
+      />
+      <div class="cards-grid">
+        {past.map((event) => <EventCard event={event} />)}
+      </div>
+    </section>
+  )}
+</BaseLayout>

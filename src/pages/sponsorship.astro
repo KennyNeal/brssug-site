@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteData } from '../lib/data';
+---
+
+<BaseLayout title={`${siteData.brand} | Sponsor a Meeting`}>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Support BRSSUG</p>
+      <h1>Sponsor a meeting</h1>
+      <p>
+        Interested in meeting 50+ enthusiastic technology professionals every second Wednesday?
+        Sponsoring a user group meeting is one of the most cost-effective ways to connect with
+        SQL Server, .NET, and data platform professionals in Baton Rouge.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href={`mailto:${siteData.contactEmail}?subject=BRSSUG Sponsorship`}>Get in touch</a>
+        <a class="button-secondary" href="tel:2257559325">225-755-9325</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel prose-panel">
+    <h2>What sponsorship includes</h2>
+    <p>
+      Sponsorship of a user group meeting covers dinner for approximately 75 people.
+      While the food choice is up to you, pizza or jambalaya is always a hit — and
+      it's a bargain considering the exposure you get with area IT professionals from
+      both the SQL Server User Group and our partner group, the
+      <a href="http://brdnug.org" target="_blank" rel="noreferrer">Baton Rouge .NET User Group</a>.
+    </p>
+    <ul>
+      <li>During announcements, we'll introduce you and you can introduce your company, mission, industry, and any job postings to the group.</li>
+      <li>You can speak for a minute, or give a lightning-round presentation up to <strong>15 minutes</strong>.</li>
+      <li>At the end of the meeting we do a raffle for books and swag — we encourage you to hang around, network, and give away a prize.</li>
+      <li>An invoice can be provided upon request. Baton Rouge User Groups is a non-for-profit corporation, but sponsorship is <strong>not tax-deductible</strong> — your fee covers only our expenses (dinner).</li>
+    </ul>
+
+    <h2>Details &amp; pricing</h2>
+    <ul>
+      <li>Pizza or jambalaya typically runs <strong>$150–$250</strong></li>
+      <li>Pick any open date on the calendar — we'd love to have you</li>
+      <li>We can order food and get reimbursed, or you can handle it — your choice</li>
+      <li>Have technical resources too? We'd love to have you sponsor <em>and</em> provide a speaker</li>
+      <li>Up to 15 minutes during announcements to present, hand out flyers/swag, shake hands, and draw raffle prizes</li>
+    </ul>
+
+    <h2>SQL Saturday Baton Rouge sponsors</h2>
+    <p>
+      Our annual <strong>Networking Night</strong> at our July meeting is for you! Gold+ sponsors of our
+      annual <a href="http://www.sqlsatbr.com/" target="_blank" rel="noreferrer">SQLSaturday Baton Rouge</a>
+      event (held in August) get an official sponsor speaking slot and presence at Networking Night.
+      See your sponsorship PDF for more information.
+    </p>
+
+    <h2>Ready to sponsor?</h2>
+    <p>
+      Email us at <a href={`mailto:${siteData.contactEmail}`}>{siteData.contactEmail}</a> or
+      call <a href="tel:2257559325">225-755-9325</a> for day-of questions or concerns.
+    </p>
+  </section>
+</BaseLayout>
