@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteData } from '../lib/data';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title={`${siteData.brand} | Mailing List & Contact`}>
@@ -79,7 +80,7 @@ import { siteData } from '../lib/data';
         <p class="card-meta">
           We need speakers! See our Call for Speakers page for everything you need to know.
         </p>
-        <a class="card-link" href="/call-for-speakers/">Call for Speakers</a>
+        <a class="card-link" href={`${base}/call-for-speakers/`}>Call for Speakers</a>
       </div>
 
     </div>

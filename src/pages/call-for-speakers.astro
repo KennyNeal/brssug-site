@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteData } from '../lib/data';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title={`${siteData.brand} | Call for Speakers`}>
@@ -53,7 +54,7 @@ import { siteData } from '../lib/data';
       Many speakers get encouragement from their employers in the form of a user group sponsorship,
       where your sales and marketing folks can meet and greet attendees of both the .NET and SQL
       user groups. If you'd like to schedule a meeting where your employer can also attend as a
-      sponsor, we can definitely do that. See our <a href="/sponsorship/">sponsorship page</a> for details.
+      sponsor, we can definitely do that. See our <a href={`${base}/sponsorship/`}>sponsorship page</a> for details.
     </p>
 
     <h2>Ready? Let's get you on the schedule.</h2>

@@ -9,6 +9,7 @@ import { formatDateTime } from '../lib/format';
 const upcomingEvents = meetupEvents.filter(e => e.status !== 'past').slice(0, 2);
 const nextEvent = upcomingEvents[0] ?? null;
 const featuredSpeakers = speakers.slice(0, 2);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title={siteData.title}>
@@ -23,7 +24,7 @@ const featuredSpeakers = speakers.slice(0, 2);
         </p>
         <div class="hero-actions">
           <a class="button" href={siteData.meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
-          <a class="button-secondary" href="/events/">View schedule</a>
+          <a class="button-secondary" href={`${base}/events/`}>View schedule</a>
         </div>
         <p class="hero-stream-note">
           📹 Can't make it in person? We stream and record every meeting on <a href={siteData.youtubeUrl} target="_blank" rel="noreferrer">YouTube</a>.
