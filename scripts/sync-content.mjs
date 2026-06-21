@@ -146,6 +146,15 @@ async function fetchSessionizeCollection(eventId, endpointNames) {
 }
 
 function extractArray(payload, keys) {
+  // Sessionize Sessions endpoint returns a single group object {groupId, groupName, sessions:[...]}
+  // or an array of such groups. Flatten them before processing.
+  if (!Array.isArray(payload) && payload?.sessions && Array.isArray(payload.sessions)) {
+    return payload.sessions;
+  }
+  if (Array.isArray(payload) && payload.length > 0 && 'groupName' in (payload[0] ?? {})) {
+    return payload.flatMap((group) => group.sessions ?? []);
+  }
+
   if (Array.isArray(payload)) {
     return payload;
   }
