@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const meetupToken = process.env.MEETUP_TOKEN; // optional – needed if group is private
 const meetupUrlname = process.env.MEETUP_URLNAME ?? 'brusergroups';
-const sessionizeEventId = process.env.SESSIONIZE_EVENT_ID;
+const sessionizeEventId = process.env.SESSIONIZE_EVENT_ID ?? '4m3gwjp1';
 const sessionizeApiBase = process.env.SESSIONIZE_API_BASE ?? 'https://sessionize.com/api/v2';
 
 const fallbackSite = {

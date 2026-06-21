@@ -1,11 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EventCard from '../components/EventCard.astro';
+import MeetingCard from '../components/MeetingCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { meetupEvents, siteData } from '../lib/data';
+import { getCollection } from 'astro:content';
+import { siteData } from '../lib/data';
 
-const upcoming = meetupEvents.filter(e => e.status !== 'past');
-const past = meetupEvents.filter(e => e.status === 'past');
+const allMeetings = await getCollection('meetings');
+const today = new Date();
+const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+
+const upcoming = allMeetings
+  .filter(m => m.data.date >= todayUtc)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const past = allMeetings
+  .filter(m => m.data.date < todayUtc)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout title={`${siteData.brand} | Events`}>
@@ -13,13 +23,14 @@ const past = meetupEvents.filter(e => e.status === 'past');
     <div class="hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Schedule</p>
-        <h1>Upcoming meetings</h1>
+        <h1>Meetings & events</h1>
         <p>
-          BRSSUG meets the second Wednesday of each month at 6:00 PM at Jones Creek Regional Library, Baton Rouge.
-          RSVPs are on Meetup — you'll get reminders and speaker announcements there.
+          BRSSUG meets the second Tuesday of each month at 6:00 PM at Jones Creek Regional Library.
+          RSVP on Meetup to get reminders and speaker announcements.
         </p>
         <div class="hero-actions">
           <a class="button" href={siteData.meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+          <a class="button-secondary" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/calendar/`}>Add to calendar</a>
         </div>
       </div>
       <aside class="hero-meta">
@@ -30,6 +41,10 @@ const past = meetupEvents.filter(e => e.status === 'past');
         <div class="meta-item">
           <span class="meta-label">Where</span>
           <span class="meta-value">{siteData.location}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Recording</span>
+          <span class="meta-value">Every meeting on YouTube</span>
         </div>
       </aside>
     </div>
@@ -43,7 +58,7 @@ const past = meetupEvents.filter(e => e.status === 'past');
         text="Session details and speakers are announced on Meetup closer to each event."
       />
       <div class="cards-grid">
-        {upcoming.map((event) => <EventCard event={event} />)}
+        {upcoming.map((m) => <MeetingCard meeting={m} />)}
       </div>
     </section>
   )}
@@ -53,11 +68,17 @@ const past = meetupEvents.filter(e => e.status === 'past');
       <SectionHeading
         eyebrow="Archive"
         title="Past meetings"
-        text="Previous sessions and speaker presentations."
+        text="Missed one? Catch the recording on YouTube."
       />
       <div class="cards-grid">
-        {past.map((event) => <EventCard event={event} />)}
+        {past.map((m) => <MeetingCard meeting={m} />)}
       </div>
+    </section>
+  )}
+
+  {upcoming.length === 0 && past.length === 0 && (
+    <section class="panel">
+      <p class="empty-state">No meetings posted yet. Check <a href={siteData.meetupUrl} target="_blank" rel="noreferrer">Meetup</a> for the latest.</p>
     </section>
   )}
 </BaseLayout>

@@ -408,6 +408,18 @@ p {
   margin-top: 0.3rem;
 }
 
+.meeting-speaker {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+.meeting-sponsor {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 .card-links {
   display: flex;
   flex-wrap: wrap;
@@ -443,6 +455,13 @@ p {
   font-size: 1.1rem;
   font-weight: 700;
   background: var(--accent);
+  flex-shrink: 0;
+}
+
+.speaker-avatar--photo {
+  display: block;
+  object-fit: cover;
+  background: var(--line);
 }
 
 .session-list {
@@ -805,6 +824,41 @@ p {
 .subtle-link {
   color: var(--accent-strong);
   font-weight: 500;
+}
+
+.next-meeting-speaker {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.day-of-data-panel,
+.sponsorship-cta-panel {
+  background: var(--surface-soft);
+}
+
+.day-of-data-panel {
+  border-left: 4px solid var(--accent);
+}
+
+.day-of-data-inner,
+.sponsorship-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.day-of-data-inner h2,
+.sponsorship-cta-inner h2 {
+  margin-bottom: 0.4rem;
+}
+
+.day-of-data-inner p,
+.sponsorship-cta-inner p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 52ch;
 }
 
 .empty-state {

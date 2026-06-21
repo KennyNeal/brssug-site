@@ -1,0 +1,42 @@
+---
+import { formatDate } from '../lib/format';
+
+type MeetingData = {
+  title: string;
+  date: Date;
+  speaker: string;
+  bio?: string;
+  meetupUrl: string;
+  youtubeUrl?: string;
+  sponsor?: string;
+};
+
+type Props = {
+  meeting: { data: MeetingData };
+};
+
+const { meeting } = Astro.props;
+const { title, date, speaker, meetupUrl, youtubeUrl, sponsor } = meeting.data;
+const today = new Date();
+const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+const isPast = date < todayUtc;
+---
+
+<article class="card event-card">
+  <p class="card-kicker">{isPast ? 'Past Meeting' : 'Upcoming'}</p>
+  <h3>{title}</h3>
+  <p class="card-meta">{formatDate(date)} · 6:00 PM</p>
+  <p class="meeting-speaker">with {speaker}</p>
+  {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
+  <div class="card-links">
+    {!isPast && (
+      <a class="card-link" href={meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+    )}
+    {isPast && (
+      <a class="card-link" href={meetupUrl} target="_blank" rel="noreferrer">View on Meetup</a>
+    )}
+    {youtubeUrl && (
+      <a class="card-link card-link--youtube" href={youtubeUrl} target="_blank" rel="noreferrer">Watch recording</a>
+    )}
+  </div>
+</article>
