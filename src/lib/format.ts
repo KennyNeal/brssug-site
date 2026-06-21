@@ -20,6 +20,15 @@ export function formatDateTime(value: string | Date | null) {
   }).format(date);
 }
 
+export function stripMarkdown(text: string, maxLength = 220): string {
+  const plain = text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // [text](url) → text
+    .replace(/[*_`#>~]+/g, '')               // bold, italic, code, headers
+    .replace(/\s+/g, ' ')
+    .trim();
+  return plain.length > maxLength ? plain.slice(0, maxLength).replace(/\s\S*$/, '') + '…' : plain;
+}
+
 export function formatDate(value: string | Date | null) {
   if (!value) return 'Date TBD';
   const date = value instanceof Date ? value : new Date(value);

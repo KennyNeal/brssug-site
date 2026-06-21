@@ -7,6 +7,9 @@ import { getCollection } from 'astro:content';
 import { siteData, speakers } from '../lib/data';
 import { formatDate } from '../lib/format';
 
+// Build a lookup from sessionizeId → profilePicture for meeting cards
+const speakerPicMap = new Map(speakers.map(s => [s.id, s.profilePicture]));
+
 const allMeetings = await getCollection('meetings');
 // Use UTC midnight today so date-only frontmatter values compare correctly
 const today = new Date();
@@ -97,7 +100,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         text="RSVP on Meetup to get reminders and stay up to date on session details."
       />
       <div class="cards-grid">
-        {upcoming.map((m) => <MeetingCard meeting={m} />)}
+        {upcoming.map((m) => (
+          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
+        ))}
       </div>
     </section>
   )}
@@ -136,7 +141,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         text="Missed a session? Catch the recording on YouTube."
       />
       <div class="cards-grid">
-        {recentPast.map((m) => <MeetingCard meeting={m} />)}
+        {recentPast.map((m) => (
+          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
+        ))}
       </div>
     </section>
   )}
