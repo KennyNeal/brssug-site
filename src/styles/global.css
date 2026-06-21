@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
-
 :root {
   color-scheme: light;
-  --bg: #f0f4f8;
+  --bg: #f4f5f7;
   --surface: #ffffff;
   --surface-soft: #f7f9fc;
-  --text: #212121;
-  --muted: #5f6368;
-  --accent: #0072ce;
-  --accent-strong: #005ba5;
-  --accent-light: #e8f1fb;
+  --text: #1a1f2e;
+  --muted: #5a6278;
+  --accent: #1a56db;
+  --accent-strong: #1045c7;
+  --accent-light: #eef1fd;
+  --amber: #d97706;
+  --amber-light: #fef3c7;
   --line: #dde3ea;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
   --radius: 10px;
   --navy: #0a1628;
   --navy-mid: #132440;
-  --surface-blue: rgba(0,114,206,0.06);
-  font-family: 'Lato', sans-serif;
+  --surface-blue: rgba(26, 86, 219, 0.06);
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 * {
@@ -212,9 +212,10 @@ main {
 .card-kicker {
   margin: 0 0 0.35rem;
   color: var(--accent-strong);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -222,7 +223,7 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   line-height: 1.05;
 }
 
@@ -277,20 +278,23 @@ p {
   align-items: center;
   justify-content: center;
   min-height: 2.7rem;
-  padding: 0.7rem 1rem;
-  border-radius: 999px;
+  padding: 0.7rem 1.25rem;
+  border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
 }
 
 .button {
   color: white;
   background: var(--accent);
+  border: none;
 }
 
 .button-secondary {
   color: var(--text);
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line);
   background: var(--surface-soft);
 }
 
@@ -332,9 +336,10 @@ p {
 
 .meta-label {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--accent-strong);
 }
 
@@ -567,9 +572,10 @@ p {
 
 .location-row .meta-label {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--accent-strong);
   padding-top: 0.15rem;
 }
@@ -620,9 +626,10 @@ p {
 .footer-col-title {
   margin: 0 0 0.2rem;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: rgba(255,255,255,0.6);
 }
 
@@ -653,15 +660,16 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--amber);
 }
 
 .next-meeting-label {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-strong);
+  letter-spacing: 0.06em;
+  color: var(--amber);
   white-space: nowrap;
 }
 
@@ -675,7 +683,7 @@ p {
 
 .next-meeting-date {
   font-weight: 700;
-  color: var(--text);
+  color: var(--amber);
 }
 
 .next-meeting-divider {
@@ -750,20 +758,10 @@ p {
   margin-top: 1.5rem;
 }
 
-.button-secondary {
-  display: inline-block;
-  padding: 0.65rem 1.4rem;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
-}
 .button-secondary:hover {
-  background: var(--accent);
-  color: #fff;
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* location venue cards */
@@ -829,9 +827,10 @@ p {
 .tier-level {
   margin: 0;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--accent-strong);
 }
 
