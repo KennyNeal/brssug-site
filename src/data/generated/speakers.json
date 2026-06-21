@@ -28,6 +28,20 @@
     ]
   },
   {
+    "id": "00484f01-540e-40ab-a6b3-98b60d3a2219",
+    "name": "Kenneth Neal",
+    "tagline": "Recovering DBA. Sr. Site Reliability Engineer at Blue Cross Blue Shield of Louisiana",
+    "bio": "Formerly a SQL Server DBA. Now an SRE. I am a part of the Baton Rouge User Groups and SQL Saturday Baton Rouge leadership teams.",
+    "profilePicture": "https://sessionize.com/image/e183-400o400o1-RGG2xR4efrPCS4Gd9frsQ3.jpg",
+    "sessions": [
+      {
+        "title": "BRUG Board Meeting and Info Session",
+        "startsAt": "2026-07-08T17:15:00",
+        "eventTitle": "Sessionize event"
+      }
+    ]
+  },
+  {
     "id": "116e619f-d8af-4bdf-b00a-2d10da3a9d08",
     "name": "Milad Fatolla Khanlou",
     "tagline": "Data Engineer At Louisiana Stare University",

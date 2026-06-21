@@ -2,6 +2,7 @@
 title: "BRUG Board Meeting and Info Session"
 date: 2026-07-08
 speaker: "Kenneth Neal"
+sessionizeId: "00484f01-540e-40ab-a6b3-98b60d3a2219"
 meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/"
 ---
 
