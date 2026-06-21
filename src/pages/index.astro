@@ -143,11 +143,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   {featuredSpeakers.length > 0 && (
     <section class="panel stack">
-      <SectionHeading
-        eyebrow="Speakers"
-        title="Past & upcoming speakers"
-        text="BRSSUG regularly features Microsoft MVPs and local experts. Interested in presenting? Reach out on Meetup."
-      />
+      <div class="section-heading-row">
+        <SectionHeading
+          eyebrow="Speakers"
+          title="Past & upcoming speakers"
+          text="BRSSUG regularly features Microsoft MVPs and local experts."
+        />
+        <a class="button-secondary" href={`${base}/call-for-speakers/`}>Want to speak?</a>
+      </div>
       <div class="cards-grid">
         {featuredSpeakers.map((speaker) => <SpeakerCard speaker={speaker} />)}
       </div>
