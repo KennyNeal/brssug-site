@@ -5,14 +5,27 @@ import { siteData } from '../lib/data';
 type Props = {
   title?: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
 };
 
 const {
   title = siteData.title,
-  description = siteData.description
+  description = siteData.description,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogUrl
 } = Astro.props as Props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const resolvedOgTitle = ogTitle ?? title;
+const resolvedOgDescription = ogDescription ?? description;
+const resolvedOgImage = ogImage ?? `${base}/brssug-icon.png`;
+const resolvedOgUrl = ogUrl ?? new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
@@ -26,6 +39,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" href={`${base}/brssug-icon.png`} />
+    <meta property="og:title" content={resolvedOgTitle} />
+    <meta property="og:description" content={resolvedOgDescription} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:url" content={resolvedOgUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <div class="page-shell">
@@ -38,6 +57,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href={`${base}/call-for-speakers/`}>Speak</a>
           <a href={`${base}/about/`}>About</a>
           <a href={`${base}/sponsorship/`}>Sponsorship</a>
+          <a href={`${base}/jobs/`}>Jobs</a>
           <a href="https://www.dayofdatabr.org/" target="_blank" rel="noreferrer">Day of Data</a>
           <a href={`${base}/contact/`}>Contact</a>
           <a class="nav-cta" href={siteData.meetupUrl} target="_blank" rel="noreferrer">Join on Meetup</a>
@@ -68,6 +88,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <div class="footer-col">
             <p class="footer-col-title">Participate</p>
             <a href={`${base}/call-for-speakers/`}>Call for Speakers</a>
+            <a href={`${base}/jobs/`}>Jobs</a>
             <a href={`${base}/sponsorship/`}>Sponsorship</a>
             <a href={`${base}/contact/`}>Contact &amp; Social</a>
             <a href={`mailto:${siteData.contactEmail}`}>Email organizers</a>

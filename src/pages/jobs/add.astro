@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteData } from '../../lib/data';
+---
+
+<BaseLayout title={`${siteData.brand} | Submit a Job Posting`}>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Jobs</p>
+      <h1>Submit a job posting</h1>
+      <p>
+        Hiring a DBA, BI developer, .NET developer, data analyst, or other data platform
+        professional? Send us the details and we'll add it to our jobs page.
+      </p>
+    </div>
+  </section>
+
+  <section id="form" class="panel">
+    <h2 class="panel-title">Job posting details</h2>
+    <p style="color: var(--muted); margin-bottom: 1.5rem; max-width: 52ch;">
+      Fill out the form below and we'll get back to you within a day or two.
+      Prefer email? <a href={`mailto:${siteData.contactEmail}?subject=BRSSUG Job Posting`}>Write us directly</a>.
+    </p>
+
+    <form
+      class="sponsor-form"
+      action={`mailto:${siteData.contactEmail}`}
+      method="post"
+      enctype="text/plain"
+      onsubmit="return prepareJobEmail(event)"
+    >
+      <div class="form-grid">
+        <label class="form-field">
+          <span class="form-label">Company name <em>required</em></span>
+          <input type="text" name="Company" required />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Contact name <em>required</em></span>
+          <input type="text" name="Contact Name" required />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Email <em>required</em></span>
+          <input type="email" name="Email" required />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Job title <em>required</em></span>
+          <input type="text" name="Job Title" required />
+        </label>
+
+        <label class="form-field form-field--wide">
+          <span class="form-label">Job description / requirements <em>required</em></span>
+          <textarea name="Description" rows="6" required placeholder="Responsibilities, required skills/experience, location, remote/hybrid/onsite, salary range, etc."></textarea>
+        </label>
+
+        <label class="form-field form-field--wide">
+          <span class="form-label">Link to apply</span>
+          <input type="url" name="Apply Link" placeholder="https://…" />
+        </label>
+
+        <label class="form-field form-field--wide">
+          <span class="form-label">Notes</span>
+          <textarea name="Notes" rows="3" placeholder="Anything else we should know…"></textarea>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="button">Send posting →</button>
+        <p class="form-note">Opens your email client with the details filled in. No data is stored on our server.</p>
+      </div>
+    </form>
+  </section>
+</BaseLayout>
+
+<script>
+  function prepareJobEmail(event) {
+    event.preventDefault();
+    const form = event.target;
+    const fd = new FormData(form);
+    const email = form.action.replace('mailto:', '');
+    const subject = 'BRSSUG Job Posting';
+    const body = Array.from(fd.entries())
+      .filter(([_, v]) => v)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('\n');
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return false;
+  }
+</script>
