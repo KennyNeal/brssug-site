@@ -179,7 +179,16 @@ I'll set up 3 cron jobs:
 
 ---
 
-## 4. Summary of Files to Create/Modify
+### Changes Already Applied (this session)
+| Change | Status |
+|--------|--------|
+| **Remove separate Speakers page** | DONE — `/speakers/` page removed, speaker info shown inline on meeting cards |
+| **Rename Events → Meetings** | DONE — `/events/` → `/meetings/`, nav + footer updated |
+| **Fix meeting schedule** | DONE — `site.json` changed from "Second Tuesday" to "Second Wednesday" |
+| **Home page cleanup** | DONE — removed featured speakers section, simplified hero CTA |
+| **Meeting reminder script** | DONE — `scripts/meeting-reminder.py` + Hermes cron job (daily 9 AM) |
+
+### Summary of Files to Create/Modify
 
 ### New Files
 | File | Purpose |

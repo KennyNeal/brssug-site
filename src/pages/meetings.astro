@@ -20,14 +20,14 @@ const past = allMeetings
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout title={`${siteData.brand} | Events`}>
+|<BaseLayout title={`${siteData.brand} | Meetings`}>
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Schedule</p>
-        <h1>Meetings & events</h1>
+        <h1>Meetings</h1>
         <p>
-          BRSSUG meets the second Tuesday of each month at 6:00 PM at Jones Creek Regional Library.
+          BRSSUG meets the second Wednesday of each month at 6:00 PM at Jones Creek Regional Library.
           RSVP on Meetup to get reminders and speaker announcements.
         </p>
         <div class="hero-actions">
@@ -57,7 +57,7 @@ const past = allMeetings
       <SectionHeading
         eyebrow="Upcoming"
         title="Next meetings"
-        text="Session details and speakers are announced on Meetup closer to each event."
+        text="Session details and speakers are announced on Meetup closer to each meeting."
       />
       <div class="cards-grid">
         {upcoming.map((m) => (
