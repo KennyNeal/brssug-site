@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://kennyneal.github.io',
-  base: '/brssug-site',
+  site: 'https://www.brssug.org',
   trailingSlash: 'always',
   integrations: [sitemap()]
 });
