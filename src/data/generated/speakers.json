@@ -14,6 +14,20 @@
     ]
   },
   {
+    "id": "22f090a8-2de4-4055-9ed6-e3b3b77856d9",
+    "name": "Burton White",
+    "tagline": "CEO, Excella",
+    "bio": "Burton White, Chief Executive Officer and Co-founder at Excella, is a\r\ntrailblazing leader with over 30 years of experience in fostering community impact\r\nand driving technological innovation. Under his command, Excella has grown from\r\nits inception to a brand recognized for delivering innovation solutions to clients\r\nacross the commercial and public sectors. With over three decades of experience in\r\nthe technology consulting space, Burton is hyper focused on developing and living a\r\nstrategy that drives value for clients, Excellians, and the community at large. His\r\nstrong belief in empowering people with technology positions Excella as a leader in\r\ncutting edge technologies such as AI.\r\n\r\nAs a New Orleans native, Burton is deeply committed to creating an inclusive and equitable tech community and champions a \"connect, share, and learn\" philosophy that enriches the local tech culture. His passion for service extends outside of technology, and manifested in Excella's community impact program, ImpaX, a companywide initiative that contributes to multi-year projects that make a difference.",
+    "profilePicture": "https://cdn.sessionize.com/image/a4fc-400o400o1-WqzUHwQbh7NEAxhFBTAzyo.jpg",
+    "sessions": [
+      {
+        "title": "How AI is Changing Successful Engagements in the Current Federal Landscape",
+        "startsAt": "2026-08-12T18:00:00",
+        "eventTitle": "Sessionize event"
+      }
+    ]
+  },
+  {
     "id": "cd09f05b-008c-4109-9959-0513a75346b6",
     "name": "John Kerski",
     "tagline": "Director, Client First Technologies",
