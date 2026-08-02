@@ -29,8 +29,12 @@ body:
   - type: input
     id: sessionizeId
     attributes:
-      label: Sessionize speaker/session ID
-      description: Fill this in if the speaker and session already exist in Sessionize. Leave blank otherwise.
+      label: Sessionize speaker GUID
+      description: >-
+        The speaker's Sessionize GUID (e.g. "116e619f-d8af-4bdf-b00a-2d10da3a9d08" — check
+        src/data/generated/speakers.json or the speaker's Sessionize profile URL), NOT the
+        numeric speakerId/sessionId pair shown elsewhere on sessionize.com. If set and the
+        abstract below is left blank, the description is pulled from Sessionize automatically.
     validations:
       required: false
 
@@ -46,9 +50,12 @@ body:
     id: abstract
     attributes:
       label: Session abstract / description
-      description: Plain text is fine — this becomes the meeting page body and can be copy-pasted into Meetup later.
+      description: >-
+        Plain text is fine — this becomes the meeting page body and can be copy-pasted into
+        Meetup later. Leave blank if a Sessionize speaker GUID is set above; the description
+        will be pulled from Sessionize automatically.
     validations:
-      required: true
+      required: false
 
   - type: input
     id: meetupUrl

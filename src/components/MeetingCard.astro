@@ -5,15 +5,17 @@ import { formatDate, stripMarkdown } from '../lib/format';
 type Props = {
   meeting: CollectionEntry<'meetings'>;
   speakerPicture?: string;
+  fallbackDescription?: string;
 };
 
-const { meeting, speakerPicture } = Astro.props;
+const { meeting, speakerPicture, fallbackDescription } = Astro.props;
 const { title, date, speaker, bio, meetupUrl, youtubeUrl, sponsor, category } = meeting.data;
 const today = new Date();
 const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
 const isPast = date < todayUtc;
 
-const excerpt = stripMarkdown(meeting.body ?? '', 220);
+const hasOwnBody = (meeting.body ?? '').trim().length > 0;
+const excerpt = stripMarkdown(hasOwnBody ? meeting.body ?? '' : fallbackDescription ?? '', 220);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 

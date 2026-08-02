@@ -18,14 +18,18 @@ const { entry } = Astro.props as Props;
 const { title, date, speaker, bio, sponsor, category, meetupUrl, youtubeUrl, sessionizeId } = entry.data;
 const { Content } = await render(entry);
 
-const speakerPicMap = new Map(speakers.map((s) => [s.id, s.profilePicture]));
-const speakerPicture = speakerPicMap.get(sessionizeId ?? '') || '';
+const speakerMap = new Map(speakers.map((s) => [s.id, s]));
+const matchedSpeaker = speakerMap.get(sessionizeId ?? '');
+const speakerPicture = matchedSpeaker?.profilePicture || '';
 
 const today = new Date();
 const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
 const isPast = date < todayUtc;
 
-const excerpt = stripMarkdown(entry.body ?? '', 160);
+const hasOwnBody = (entry.body ?? '').trim().length > 0;
+const fallbackDescription = hasOwnBody ? '' : matchedSpeaker?.sessions?.[0]?.description || '';
+
+const excerpt = stripMarkdown(hasOwnBody ? entry.body ?? '' : fallbackDescription, 160);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -47,7 +51,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </div>
 
-    <Content />
+    {hasOwnBody
+      ? <Content />
+      : fallbackDescription
+        ? <p>{fallbackDescription}</p>
+        : <p class="meeting-abstract">Description coming soon.</p>
+    }
 
     {bio && <p class="meeting-speaker-bio">{bio}</p>}
     {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
