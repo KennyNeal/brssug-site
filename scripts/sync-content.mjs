@@ -138,6 +138,7 @@ async function fetchSessionizeData() {
 
       speaker.sessions.push({
         title: session.title,
+        description: session.description,
         startsAt: session.startsAt,
         eventTitle: 'Sessionize event'
       });

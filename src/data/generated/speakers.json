@@ -8,6 +8,7 @@
     "sessions": [
       {
         "title": "Own Your Workflow: Build Notebooks Locally & Deploy Them to Fabric",
+        "description": "Break free from browser IDE in Fabric Python and PySpark Notebooks! Learn to install Python and Spark, create your own local lakehouse, and develop Python and PySpark Notebooks in Visual Studio, VSCode, or whatever IDE you're used to. We'll start with a clean machine and download, install and configure everything we need. We will create a feature-rich notebook, and wrap up by deploying to Fabric.",
         "startsAt": "2026-02-25T18:00:00",
         "eventTitle": "Sessionize event"
       }
@@ -22,6 +23,7 @@
     "sessions": [
       {
         "title": "How AI is Changing Successful Engagements in the Current Federal Landscape",
+        "description": "Burton White, CEO of Excella, will discuss how AI is changing the roles, skills, and team structures needed to deliver successful engagements in the current federal landscape.",
         "startsAt": "2026-08-12T18:00:00",
         "eventTitle": "Sessionize event"
       }
@@ -36,6 +38,7 @@
     "sessions": [
       {
         "title": "What is Power BI Developer Mode?",
+        "description": "With the introduction of Power BI Developer Mode, the game has changed for data professionals. This session will explore how Power BI development practices can be enhanced using the PBIP format and the new capabilities it brings. We’ll dive into how Developer Mode supports better version control and share tips for leveraging this feature to accelerate your team's work.",
         "startsAt": "2026-05-13T18:00:00",
         "eventTitle": "Sessionize event"
       }
@@ -50,6 +53,7 @@
     "sessions": [
       {
         "title": "BRUG Board Meeting and Info Session",
+        "description": "Do you want to get involved with the Baton Rouge User Groups? Join us at our annual board meeting to give your input into the groups and even volunteer for a leadership position. We're looking for your ideas and help to make the groups what you want them to be.",
         "startsAt": "2026-07-08T17:15:00",
         "eventTitle": "Sessionize event"
       }
@@ -64,6 +68,7 @@
     "sessions": [
       {
         "title": "Amazon Product and seller Analysis Dashboard",
+        "description": "Amazon Product and Seller Analysis Dashboard is a personal project that implements a complete ETL pipeline, from data extraction to advanced analytical insights, using historical Amazon data stored and analyzed in Snowflake, loaded and visualized through a Power BI dashboard to support business analysis.",
         "startsAt": "2026-01-21T18:00:00",
         "eventTitle": "Sessionize event"
       }
@@ -78,6 +83,7 @@
     "sessions": [
       {
         "title": "Enhancing Power BI with Copilot",
+        "description": "The integration of Copilot into Power BI development marks a step in learning Power BI development for data professionals. Copilot streamlines the data model and report-building process through intelligent suggestions, natural language query generation, and context-aware insights. Developers can now describe desired outcomes in plain English, and Copilot will generate DAX formulas, visuals, and even entire report structures. This enables developers to focus less on manual data wrangling and more on advancing Power BI skills. Copilot fosters a more collaborative and intuitive development experience within Power BI. It assists in data modeling, ensures best practices in design, and provides real-time feedback that enhances the overall quality of models and reports. With the ability to learn from organizational semantic models and adapt to specific business contexts, Copilot becomes a powerful assistant in delivering data-driven insights. As organizations continue to embrace self-service analytics, Copilot acts as both a tutor and co-creator—bridging skill gaps and accelerating the journey from raw data to impactful storytelling.",
         "startsAt": "2026-01-14T18:00:00",
         "eventTitle": "Sessionize event"
       }

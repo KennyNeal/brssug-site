@@ -18,6 +18,7 @@ export type SiteData = {
 
 export type SpeakerSession = {
   title: string;
+  description: string;
   startsAt: string | null;
   eventTitle: string;
 };
