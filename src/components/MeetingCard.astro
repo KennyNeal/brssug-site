@@ -6,9 +6,10 @@ type Props = {
   meeting: CollectionEntry<'meetings'>;
   speakerPicture?: string;
   fallbackDescription?: string;
+  fallbackBio?: string;
 };
 
-const { meeting, speakerPicture, fallbackDescription } = Astro.props;
+const { meeting, speakerPicture, fallbackDescription, fallbackBio } = Astro.props;
 const { title, date, speaker, bio, meetupUrl, youtubeUrl, sponsor, category, lightningSpeaker, lightningTitle } = meeting.data;
 const today = new Date();
 const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
@@ -16,6 +17,7 @@ const isPast = date < todayUtc;
 
 const hasOwnBody = (meeting.body ?? '').trim().length > 0;
 const excerpt = stripMarkdown(hasOwnBody ? meeting.body ?? '' : fallbackDescription ?? '', 220);
+const displayBio = stripMarkdown(bio || fallbackBio || '', 220);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -36,7 +38,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <h3 class="meeting-card-title"><a href={`${base}/meetings/${meeting.id}/`}>{title}</a></h3>
 
   {excerpt && <p class="meeting-abstract">{excerpt}</p>}
-  {bio && <p class="meeting-speaker-bio">{bio}</p>}
+  {displayBio && <p class="meeting-speaker-bio">{displayBio}</p>}
   {lightningSpeaker && lightningTitle && (
     <p class="meeting-lightning">Lightning talk: <strong>{lightningTitle}</strong> — {lightningSpeaker}</p>
   )}
