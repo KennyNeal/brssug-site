@@ -14,7 +14,9 @@ const HEADING_MAP = {
   'Session abstract / description': 'body',
   'Meetup event URL': 'meetupUrl',
   'YouTube recording URL': 'youtubeUrl',
-  'Sponsor (if any)': 'sponsor'
+  'Sponsor (if any)': 'sponsor',
+  'Lightning talk speaker (if any)': 'lightningSpeaker',
+  'Lightning talk title (if any)': 'lightningTitle'
 };
 
 function parseIssueBody(body) {
@@ -65,6 +67,8 @@ function buildFrontmatter(fields) {
   if (fields.meetupUrl) lines.push(`meetupUrl: ${yamlString(fields.meetupUrl)}`);
   if (fields.youtubeUrl) lines.push(`youtubeUrl: ${yamlString(fields.youtubeUrl)}`);
   if (fields.sponsor) lines.push(`sponsor: ${yamlString(fields.sponsor)}`);
+  if (fields.lightningSpeaker) lines.push(`lightningSpeaker: ${yamlString(fields.lightningSpeaker)}`);
+  if (fields.lightningTitle) lines.push(`lightningTitle: ${yamlString(fields.lightningTitle)}`);
 
   return `---\n${lines.join('\n')}\n---\n`;
 }
@@ -127,6 +131,11 @@ async function main() {
   if (!fields.body && !fields.sessionizeId) {
     warnings.push(
       'No abstract was given and no Sessionize speaker GUID was set, so the meeting page will show a "Description coming soon" placeholder until one of those is added.'
+    );
+  }
+  if (Boolean(fields.lightningSpeaker) !== Boolean(fields.lightningTitle)) {
+    warnings.push(
+      'Only one of lightning talk speaker/title was given — both are required for the lightning talk to show on the site.'
     );
   }
 

@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props as Props;
-const { title, date, speaker, bio, sponsor, category, meetupUrl, youtubeUrl, sessionizeId } = entry.data;
+const { title, date, speaker, bio, sponsor, category, meetupUrl, youtubeUrl, sessionizeId, lightningSpeaker, lightningTitle } = entry.data;
 const { Content } = await render(entry);
 
 const speakerMap = new Map(speakers.map((s) => [s.id, s]));
@@ -59,6 +59,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
 
     {bio && <p class="meeting-speaker-bio">{bio}</p>}
+    {lightningSpeaker && lightningTitle && (
+      <p class="meeting-lightning">Lightning talk: <strong>{lightningTitle}</strong> — {lightningSpeaker}</p>
+    )}
     {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
 
     <div class="card-links">
