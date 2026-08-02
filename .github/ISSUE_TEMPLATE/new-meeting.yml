@@ -1,0 +1,74 @@
+name: New meeting
+description: Hand off details for a new BRSSUG meeting so it can be added to the site.
+title: "New meeting: "
+labels: ["meeting"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Session title
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Meeting date
+      description: Format YYYY-MM-DD
+      placeholder: "2026-01-01"
+    validations:
+      required: true
+
+  - type: input
+    id: speaker
+    attributes:
+      label: Speaker full name
+    validations:
+      required: true
+
+  - type: input
+    id: sessionizeId
+    attributes:
+      label: Sessionize speaker/session ID
+      description: Fill this in if the speaker and session already exist in Sessionize. Leave blank otherwise.
+    validations:
+      required: false
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: Speaker bio (only if not in Sessionize)
+      description: Only needed if the speaker isn't in Sessionize yet.
+    validations:
+      required: false
+
+  - type: textarea
+    id: abstract
+    attributes:
+      label: Session abstract / description
+      description: Plain text is fine — this becomes the meeting page body and can be copy-pasted into Meetup later.
+    validations:
+      required: true
+
+  - type: input
+    id: meetupUrl
+    attributes:
+      label: Meetup event URL
+      description: Leave blank if the Meetup event doesn't exist yet — it can be added later.
+    validations:
+      required: false
+
+  - type: input
+    id: youtubeUrl
+    attributes:
+      label: YouTube recording URL
+      description: Add after the meeting happens.
+    validations:
+      required: false
+
+  - type: input
+    id: sponsor
+    attributes:
+      label: Sponsor (if any)
+    validations:
+      required: false

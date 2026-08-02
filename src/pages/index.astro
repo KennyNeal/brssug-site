@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MeetingCard from '../components/MeetingCard.astro';
+import MeetingListItem from '../components/MeetingListItem.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { getCollection } from 'astro:content';
 import { siteData, speakers } from '../lib/data';
@@ -81,27 +82,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </>
         )}
       </div>
-      <div class="next-meeting-actions">
-        <a href={nextMeeting.data.meetupUrl} target="_blank" rel="noreferrer" class="next-meeting-rsvp">
-          RSVP on Meetup →
-        </a>
-      </div>
+      {nextMeeting.data.meetupUrl && (
+        <div class="next-meeting-actions">
+          <a href={nextMeeting.data.meetupUrl} target="_blank" rel="noreferrer" class="next-meeting-rsvp">
+            RSVP on Meetup →
+          </a>
+        </div>
+      )}
     </div>
-  )}
-
-  {upcoming.length > 0 && (
-    <section class="panel stack">
-      <SectionHeading
-        eyebrow="Upcoming"
-        title="Next meetings"
-        text="RSVP on Meetup to get reminders and stay up to date on session details."
-      />
-      <div class="cards-grid">
-        {upcoming.map((m) => (
-          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
-        ))}
-      </div>
-    </section>
   )}
 
   <section class="panel about-panel">
@@ -130,6 +118,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
+  {upcoming.length > 0 && (
+    <section class="panel stack">
+      <SectionHeading
+        eyebrow="Upcoming"
+        title="Next meetings"
+        text="RSVP on Meetup to get reminders and stay up to date on session details."
+      />
+      <div class="cards-grid">
+        {upcoming.map((m) => (
+          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
+        ))}
+      </div>
+    </section>
+  )}
+
   {recentPast.length > 0 && (
     <section class="panel stack">
       <SectionHeading
@@ -137,11 +140,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         title="Recent meetings"
         text="Missed a session? Catch the recording on YouTube."
       />
-      <div class="cards-grid">
+      <ul class="meeting-list">
         {recentPast.map((m) => (
-          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
+          <MeetingListItem meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
         ))}
-      </div>
+      </ul>
     </section>
   )}
 
@@ -161,7 +164,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div>
         <p class="eyebrow">Get Involved</p>
         <h2>Sponsor a meeting</h2>
-        <p>Connect with 50+ SQL Server, .NET, and data platform professionals for $150–$250. Pizza optional, connections guaranteed.</p>
+        <p>Connect with 50+ SQL Server, .NET, and data platform professionals for $150–$250, including a pizza dinner if you'd like to cover it.</p>
       </div>
       <a class="button-secondary" href={`${base}/sponsorship/`}>Sponsorship info →</a>
     </div>

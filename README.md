@@ -5,12 +5,15 @@ This repository is a static site starter for moving BRSSUG off Google Sites and 
 It uses Astro because the site needs two things at once:
 
 1. A flexible public-facing layout for a community site.
-2. Build-time syncing from Meetup and Sessionize so event and speaker data stay current.
+2. Build-time syncing from Sessionize so speaker data stays current.
+
+Meeting info itself (title, date, speaker, links) lives as one markdown file per
+meeting in `src/content/meetings/` — see `_TEMPLATE.md` in that folder.
 
 ## What is already set up
 
 - Static GitHub Pages deployment.
-- A build-time sync script for Meetup and Sessionize.
+- A build-time sync script for Sessionize speaker data.
 - Seed content so the site still builds before API credentials are added.
 - A custom domain file for `www.brssug.org`.
 
@@ -31,8 +34,6 @@ npm run build
 
 Set these environment variables locally or in GitHub Actions secrets:
 
-- `MEETUP_TOKEN`: Meetup GraphQL bearer token.
-- `MEETUP_NETWORK_URLNAME`: your Meetup Pro network urlname.
 - `SESSIONIZE_EVENT_ID`: the public Sessionize event ID or slug.
 - `SESSIONIZE_API_BASE`: optional override for the Sessionize API base URL.
 

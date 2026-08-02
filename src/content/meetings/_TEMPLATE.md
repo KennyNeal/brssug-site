@@ -4,11 +4,12 @@
 title: "Session Title Here"
 date: 2026-01-01
 speaker: "Speaker Full Name"
-meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/events/EVENTID/"
-# sessionizeId: "speaker-sessionize-id"    # uncomment if speaker is in Sessionize
+# sessionizeId: "speaker-sessionize-id"    # set once the speaker/session exists in Sessionize — pulls bio, tagline, and photo automatically
+# bio: "Speaker bio"                       # only needed if the speaker isn't in Sessionize
+# meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/events/EVENTID/"  # add once the Meetup event exists — the site works fine without it in the meantime
 # youtubeUrl: "https://youtu.be/VIDEO_ID"  # add after the meeting
-# bio: "Speaker bio — only needed if not in Sessionize"
 # sponsor: "Company Name"
 ---
 
-Session abstract or description goes here. This shows on the event card and meeting detail page.
+Session abstract or description goes here. This shows on the event card and meeting detail page,
+and can be copy-pasted straight into the Meetup event description once you create it there.

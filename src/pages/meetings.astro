@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MeetingCard from '../components/MeetingCard.astro';
+import MeetingListItem from '../components/MeetingListItem.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { getCollection } from 'astro:content';
 import { siteData, speakers } from '../lib/data';
@@ -20,7 +21,7 @@ const past = allMeetings
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-|<BaseLayout title={`${siteData.brand} | Meetings`}>
+<BaseLayout title={`${siteData.brand} | Meetings`}>
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy">
@@ -75,11 +76,11 @@ const past = allMeetings
         title="Past meetings"
         text="Missed one? Catch the recording on YouTube."
       />
-      <div class="cards-grid">
+      <ul class="meeting-list">
         {past.map((m) => (
-          <MeetingCard meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
+          <MeetingListItem meeting={m} speakerPicture={speakerPicMap.get(m.data.sessionizeId ?? '') || ''} />
         ))}
-      </div>
+      </ul>
     </section>
   )}
 
