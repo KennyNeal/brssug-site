@@ -77,7 +77,10 @@ jobs:
           git checkout -b "$BRANCH"
           git add "src/content/meetings/$FILENAME"
           git commit -m "Add meeting: $FILENAME"
-          git push -u origin "$BRANCH"
+          # --force: this branch is fully bot-owned and regenerated fresh each run, so a
+          # leftover branch from a previous failed/retried run (e.g. reopening the issue
+          # after fixing something) should just be overwritten, not rejected as non-fast-forward.
+          git push --force -u origin "$BRANCH"
 
           BODY="Automatically generated from #$ISSUE_NUMBER.
 
@@ -89,4 +92,8 @@ jobs:
           **Heads up:** $WARNINGS"
           fi
 
-          gh pr create --base main --head "$BRANCH" --title "Add meeting: $FILENAME" --body "$BODY"
+          if gh pr view "$BRANCH" >/dev/null 2>&1; then
+            echo "PR already exists for $BRANCH, skipping creation."
+          else
+            gh pr create --base main --head "$BRANCH" --title "Add meeting: $FILENAME" --body "$BODY"
+          fi
