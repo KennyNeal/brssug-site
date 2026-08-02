@@ -57,6 +57,10 @@ function buildEmail(meeting) {
     meeting.body
   ];
 
+  if (meeting.lightningSpeaker && meeting.lightningTitle) {
+    lines.push('', `Lightning talk: ${meeting.lightningTitle} — ${meeting.lightningSpeaker}`);
+  }
+
   if (meeting.sponsor) {
     lines.push('', `Sponsor: ${meeting.sponsor}`);
   }

@@ -12,6 +12,8 @@ speaker: "Speaker Full Name"
 # meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/events/EVENTID/"  # add once the Meetup event exists — the site works fine without it in the meantime
 # youtubeUrl: "https://youtu.be/VIDEO_ID"  # add after the meeting
 # sponsor: "Company Name"
+# lightningSpeaker: "Lightning Speaker Name"  # only if this meeting had a lightning talk — not every meeting does
+# lightningTitle: "Lightning Talk Title"      # required together with lightningSpeaker for it to show on the site
 ---
 
 Session abstract or description goes here. This shows on the event card and meeting detail page,

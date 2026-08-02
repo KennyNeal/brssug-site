@@ -13,6 +13,8 @@ const meetings = defineCollection({
     youtubeUrl: z.string().optional(),
     sponsor: z.string().optional(),
     category: z.string().default('Meeting'),
+    lightningSpeaker: z.string().optional(),
+    lightningTitle: z.string().optional(),
   }),
 });
 

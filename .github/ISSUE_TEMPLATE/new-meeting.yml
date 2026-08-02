@@ -79,3 +79,19 @@ body:
       label: Sponsor (if any)
     validations:
       required: false
+
+  - type: input
+    id: lightningSpeaker
+    attributes:
+      label: Lightning talk speaker (if any)
+      description: We don't always have a lightning talk — leave blank if this meeting doesn't have one.
+    validations:
+      required: false
+
+  - type: input
+    id: lightningTitle
+    attributes:
+      label: Lightning talk title (if any)
+      description: Only shows on the site if a lightning talk speaker is also given above.
+    validations:
+      required: false

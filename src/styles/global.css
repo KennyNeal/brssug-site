@@ -433,6 +433,12 @@ p {
   color: var(--muted);
 }
 
+.meeting-lightning {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 /* Rich meeting card */
 .meeting-card {
   display: grid;
