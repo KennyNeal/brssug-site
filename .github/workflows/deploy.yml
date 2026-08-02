@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -38,6 +40,26 @@ jobs:
         env:
           SESSIONIZE_EVENT_ID: ${{ secrets.SESSIONIZE_EVENT_ID }}
           SESSIONIZE_API_BASE: ${{ secrets.SESSIONIZE_API_BASE }}
+
+      - name: Cross-post meetings to brdnug.org (WordPress)
+        run: npm run sync:wordpress
+        continue-on-error: true
+        env:
+          WORDPRESS_API_BASE: ${{ secrets.WORDPRESS_API_BASE }}
+          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
+          WORDPRESS_CATEGORY_ID: ${{ secrets.WORDPRESS_CATEGORY_ID }}
+
+      - name: Email brdnug.org post draft
+        run: npm run sync:email
+        continue-on-error: true
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_AFTER: ${{ github.event.after }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
