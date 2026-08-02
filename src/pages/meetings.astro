@@ -69,6 +69,7 @@ const past = allMeetings
               meeting={m}
               speakerPicture={matchedSpeaker?.profilePicture || ''}
               fallbackDescription={matchedSpeaker?.sessions?.[0]?.description || ''}
+              fallbackBio={matchedSpeaker?.bio || ''}
             />
           );
         })}

@@ -28,6 +28,7 @@ const isPast = date < todayUtc;
 
 const hasOwnBody = (entry.body ?? '').trim().length > 0;
 const fallbackDescription = hasOwnBody ? '' : matchedSpeaker?.sessions?.[0]?.description || '';
+const displayBio = bio || matchedSpeaker?.bio || '';
 
 const excerpt = stripMarkdown(hasOwnBody ? entry.body ?? '' : fallbackDescription, 160);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -58,7 +59,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         : <p class="meeting-abstract">Description coming soon.</p>
     }
 
-    {bio && <p class="meeting-speaker-bio">{bio}</p>}
+    {displayBio && <p class="meeting-speaker-bio">{displayBio}</p>}
     {lightningSpeaker && lightningTitle && (
       <p class="meeting-lightning">Lightning talk: <strong>{lightningTitle}</strong> — {lightningSpeaker}</p>
     )}
