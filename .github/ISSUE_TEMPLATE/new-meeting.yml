@@ -81,6 +81,14 @@ body:
       required: false
 
   - type: input
+    id: sponsorUrl
+    attributes:
+      label: Sponsor website URL (if any)
+      description: Links the sponsor name on the site if given.
+    validations:
+      required: false
+
+  - type: input
     id: lightningSpeaker
     attributes:
       label: Lightning talk speaker (if any)

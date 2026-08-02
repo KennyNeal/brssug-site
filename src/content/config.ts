@@ -12,6 +12,7 @@ const meetings = defineCollection({
     meetupUrl: z.string().optional(),
     youtubeUrl: z.string().optional(),
     sponsor: z.string().optional(),
+    sponsorUrl: z.string().optional(),
     category: z.string().default('Meeting'),
     lightningSpeaker: z.string().optional(),
     lightningTitle: z.string().optional(),

@@ -12,6 +12,7 @@ speaker: "Speaker Full Name"
 # meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/events/EVENTID/"  # add once the Meetup event exists — the site works fine without it in the meantime
 # youtubeUrl: "https://youtu.be/VIDEO_ID"  # add after the meeting
 # sponsor: "Company Name"
+# sponsorUrl: "https://example.com"        # optional — links the sponsor name on the site if given
 # lightningSpeaker: "Lightning Speaker Name"  # only if this meeting had a lightning talk — not every meeting does
 # lightningTitle: "Lightning Talk Title"      # required together with lightningSpeaker for it to show on the site
 # lightningSessionizeId: "lightning-speaker-sessionize-id"  # optional — the lightning speaker's Sessionize GUID, for their photo. Falls back to an initial-letter avatar if omitted or not found.
