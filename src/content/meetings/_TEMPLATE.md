@@ -14,6 +14,7 @@ speaker: "Speaker Full Name"
 # sponsor: "Company Name"
 # lightningSpeaker: "Lightning Speaker Name"  # only if this meeting had a lightning talk — not every meeting does
 # lightningTitle: "Lightning Talk Title"      # required together with lightningSpeaker for it to show on the site
+# lightningSessionizeId: "lightning-speaker-sessionize-id"  # optional — the lightning speaker's Sessionize GUID, for their photo. Falls back to an initial-letter avatar if omitted or not found.
 ---
 
 Session abstract or description goes here. This shows on the event card and meeting detail page,
