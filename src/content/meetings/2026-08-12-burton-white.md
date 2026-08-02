@@ -7,4 +7,4 @@ meetupUrl: "https://www.meetup.com/brusergroups/events/315810851/"
 sponsor: "Excella"
 ---
 
-Burton White, CEO of Excella, will discuss how AI is changing the roles, skills, and team structures needed to deliver successful engagements in the current federal landscape. All are welcome.
+Burton White, CEO of Excella, will discuss how AI is changing the roles, skills, and team structures needed to deliver successful engagements in the current federal landscape. All are welcome. Bring a friend!
