@@ -12,6 +12,7 @@ const meetings = defineCollection({
     meetupUrl: z.string().optional(),
     youtubeUrl: z.string().optional(),
     sponsor: z.string().optional(),
+    category: z.string().default('Meeting'),
   }),
 });
 

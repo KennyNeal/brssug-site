@@ -1,44 +1,24 @@
 ---
-import { formatDate } from '../lib/format';
-
-type MeetingData = {
-  title: string;
-  date: Date;
-  speaker: string;
-  bio?: string;
-  meetupUrl?: string;
-  youtubeUrl?: string;
-  sponsor?: string;
-};
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, stripMarkdown } from '../lib/format';
 
 type Props = {
-  meeting: { data: MeetingData; body?: string };
+  meeting: CollectionEntry<'meetings'>;
   speakerPicture?: string;
 };
 
 const { meeting, speakerPicture } = Astro.props;
-const { title, date, speaker, bio, meetupUrl, youtubeUrl, sponsor } = meeting.data;
+const { title, date, speaker, bio, meetupUrl, youtubeUrl, sponsor, category } = meeting.data;
 const today = new Date();
 const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
 const isPast = date < todayUtc;
 
-// Strip markdown from body for plain-text excerpt
-const fullText = meeting.body
-  ? meeting.body
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/[*_`#>~]+/g, '')
-      .replace(/\s+/g, ' ')
-      .trim()
-  : '';
-const isTruncated = fullText.length > 220;
-const excerpt = isTruncated
-  ? fullText.slice(0, 220).replace(/\s\S*$/, '')
-  : fullText;
-const remainder = isTruncated ? fullText.slice(excerpt.length) : '';
+const excerpt = stripMarkdown(meeting.body ?? '', 220);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <article class="card meeting-card">
-  <p class="card-kicker">{isPast ? 'Past Meeting' : 'Upcoming'}</p>
+  <p class="card-kicker">{category} · {isPast ? 'Past Meeting' : 'Upcoming'}</p>
 
   <div class="meeting-card-header">
     {speakerPicture
@@ -51,18 +31,9 @@ const remainder = isTruncated ? fullText.slice(excerpt.length) : '';
     </div>
   </div>
 
-  <h3 class="meeting-card-title">{title}</h3>
+  <h3 class="meeting-card-title"><a href={`${base}/meetings/${meeting.id}/`}>{title}</a></h3>
 
-  {fullText && (
-    isTruncated
-      ? (
-        <details class="meeting-abstract-details">
-          <summary class="meeting-abstract">{excerpt}<span class="meeting-abstract-ellipsis">…</span></summary>
-          <p class="meeting-abstract meeting-abstract-remainder">{remainder}</p>
-        </details>
-      )
-      : <p class="meeting-abstract">{fullText}</p>
-  )}
+  {excerpt && <p class="meeting-abstract">{excerpt}</p>}
   {bio && <p class="meeting-speaker-bio">{bio}</p>}
   {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
 

@@ -1,0 +1,68 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteData, speakers } from '../../lib/data';
+import { formatDate, stripMarkdown } from '../../lib/format';
+
+type Props = { entry: CollectionEntry<'meetings'> };
+
+export async function getStaticPaths() {
+  const meetings = await getCollection('meetings');
+  return meetings.map((entry: CollectionEntry<'meetings'>) => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props as Props;
+const { title, date, speaker, bio, sponsor, category, meetupUrl, youtubeUrl, sessionizeId } = entry.data;
+const { Content } = await render(entry);
+
+const speakerPicMap = new Map(speakers.map((s) => [s.id, s.profilePicture]));
+const speakerPicture = speakerPicMap.get(sessionizeId ?? '') || '';
+
+const today = new Date();
+const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+const isPast = date < todayUtc;
+
+const excerpt = stripMarkdown(entry.body ?? '', 160);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title={`${siteData.brand} | ${title}`} description={excerpt || undefined}>
+  <section class="hero">
+    <p class="eyebrow">{category} · {isPast ? 'Past Meeting' : 'Upcoming'}</p>
+    <h1>{title}</h1>
+  </section>
+
+  <section class="panel prose-panel">
+    <div class="meeting-post-meta">
+      {speakerPicture
+        ? <img src={speakerPicture} alt={speaker} class="meeting-speaker-photo" width="52" height="52" />
+        : <div class="meeting-speaker-photo meeting-speaker-initial" aria-hidden="true">{speaker.slice(0, 1)}</div>
+      }
+      <div class="meeting-card-meta">
+        <p class="meeting-speaker-name">{speaker}</p>
+        <p class="card-meta">{formatDate(date)} · 5:15 PM</p>
+      </div>
+    </div>
+
+    <Content />
+
+    {bio && <p class="meeting-speaker-bio">{bio}</p>}
+    {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
+
+    <div class="card-links">
+      {meetupUrl && (
+        !isPast
+          ? <a class="card-link card-link--primary" href={meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+          : <a class="card-link" href={meetupUrl} target="_blank" rel="noreferrer">View on Meetup</a>
+      )}
+      {youtubeUrl && (
+        <a class="card-link card-link--youtube" href={youtubeUrl} target="_blank" rel="noreferrer">Watch recording</a>
+      )}
+    </div>
+
+    <a class="button-secondary" href={`${base}/meetings/`}>← Back to all meetings</a>
+  </section>
+</BaseLayout>
