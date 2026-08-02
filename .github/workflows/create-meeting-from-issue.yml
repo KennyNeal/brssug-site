@@ -2,7 +2,7 @@ name: Create meeting from issue
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: write
