@@ -95,3 +95,13 @@ body:
       description: Only shows on the site if a lightning talk speaker is also given above.
     validations:
       required: false
+
+  - type: input
+    id: lightningSessionizeId
+    attributes:
+      label: Lightning talk speaker Sessionize GUID (if any)
+      description: >-
+        Optional — gets the lightning speaker's photo on the site, same as the main
+        speaker's Sessionize GUID above. Leave blank for an initial-letter avatar instead.
+    validations:
+      required: false

@@ -16,7 +16,8 @@ const HEADING_MAP = {
   'YouTube recording URL': 'youtubeUrl',
   'Sponsor (if any)': 'sponsor',
   'Lightning talk speaker (if any)': 'lightningSpeaker',
-  'Lightning talk title (if any)': 'lightningTitle'
+  'Lightning talk title (if any)': 'lightningTitle',
+  'Lightning talk speaker Sessionize GUID (if any)': 'lightningSessionizeId'
 };
 
 function parseIssueBody(body) {
@@ -69,6 +70,7 @@ function buildFrontmatter(fields) {
   if (fields.sponsor) lines.push(`sponsor: ${yamlString(fields.sponsor)}`);
   if (fields.lightningSpeaker) lines.push(`lightningSpeaker: ${yamlString(fields.lightningSpeaker)}`);
   if (fields.lightningTitle) lines.push(`lightningTitle: ${yamlString(fields.lightningTitle)}`);
+  if (fields.lightningSessionizeId) lines.push(`lightningSessionizeId: ${yamlString(fields.lightningSessionizeId)}`);
 
   return `---\n${lines.join('\n')}\n---\n`;
 }

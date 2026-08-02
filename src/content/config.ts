@@ -15,6 +15,7 @@ const meetings = defineCollection({
     category: z.string().default('Meeting'),
     lightningSpeaker: z.string().optional(),
     lightningTitle: z.string().optional(),
+    lightningSessionizeId: z.string().optional(),
   }),
 });
 

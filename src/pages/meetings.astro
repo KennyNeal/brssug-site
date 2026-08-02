@@ -70,6 +70,7 @@ const past = allMeetings
               speakerPicture={matchedSpeaker?.profilePicture || ''}
               fallbackDescription={matchedSpeaker?.sessions?.[0]?.description || ''}
               fallbackBio={matchedSpeaker?.bio || ''}
+              lightningSpeakerPicture={speakerMap.get(m.data.lightningSessionizeId ?? '')?.profilePicture || ''}
             />
           );
         })}

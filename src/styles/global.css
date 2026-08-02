@@ -433,10 +433,41 @@ p {
   color: var(--muted);
 }
 
-.meeting-lightning {
-  margin: 0.2rem 0 0;
-  font-size: 0.85rem;
+.meeting-speaker-bio {
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  font-style: italic;
   color: var(--muted);
+}
+
+.meeting-lightning {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-light);
+}
+
+.meeting-lightning-photo {
+  width: 36px;
+  height: 36px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.meeting-lightning-text {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.meeting-lightning-text strong {
+  color: var(--accent-strong);
 }
 
 /* Rich meeting card */
