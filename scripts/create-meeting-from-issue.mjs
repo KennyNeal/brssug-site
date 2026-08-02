@@ -15,6 +15,7 @@ const HEADING_MAP = {
   'Meetup event URL': 'meetupUrl',
   'YouTube recording URL': 'youtubeUrl',
   'Sponsor (if any)': 'sponsor',
+  'Sponsor website URL (if any)': 'sponsorUrl',
   'Lightning talk speaker (if any)': 'lightningSpeaker',
   'Lightning talk title (if any)': 'lightningTitle',
   'Lightning talk speaker Sessionize GUID (if any)': 'lightningSessionizeId'
@@ -68,6 +69,7 @@ function buildFrontmatter(fields) {
   if (fields.meetupUrl) lines.push(`meetupUrl: ${yamlString(fields.meetupUrl)}`);
   if (fields.youtubeUrl) lines.push(`youtubeUrl: ${yamlString(fields.youtubeUrl)}`);
   if (fields.sponsor) lines.push(`sponsor: ${yamlString(fields.sponsor)}`);
+  if (fields.sponsorUrl) lines.push(`sponsorUrl: ${yamlString(fields.sponsorUrl)}`);
   if (fields.lightningSpeaker) lines.push(`lightningSpeaker: ${yamlString(fields.lightningSpeaker)}`);
   if (fields.lightningTitle) lines.push(`lightningTitle: ${yamlString(fields.lightningTitle)}`);
   if (fields.lightningSessionizeId) lines.push(`lightningSessionizeId: ${yamlString(fields.lightningSessionizeId)}`);
