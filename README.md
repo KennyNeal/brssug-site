@@ -62,6 +62,15 @@ configured, the email step only fires for meeting files added or changed in that
 
 The workflow in `.github/workflows/deploy.yml` builds on push to `main`, on a schedule, and on manual dispatch. Add the secrets above to make the deployed site sync live data and cross-post meetings automatically.
 
+**`www.brssug.org` is not live yet** — DNS still points at the old Google Sites host, and the
+custom domain isn't registered in this repo's Pages settings, pending group signoff on the cutover.
+Until then, preview the site at its GitHub Pages project URL:
+**https://kennyneal.github.io/brssug-site/**. The build sets `GITHUB_PAGES_PROJECT_PREVIEW=true`
+(see `astro.config.mjs` and the "Build site" step in `deploy.yml`) so internal links resolve
+correctly under the `/brssug-site/` path. When ready to cut over: update DNS for `www.brssug.org`
+to point at GitHub Pages, set the custom domain in Settings → Pages, and remove
+`GITHUB_PAGES_PROJECT_PREVIEW` from `deploy.yml` — no other changes needed.
+
 ## Create a meeting from an issue
 
 `.github/workflows/create-meeting-from-issue.yml` runs whenever an issue is opened with the
