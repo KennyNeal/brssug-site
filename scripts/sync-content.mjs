@@ -3,15 +3,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const meetupToken = process.env.MEETUP_TOKEN; // optional – needed if group is private
-const meetupUrlname = process.env.MEETUP_URLNAME ?? 'brusergroups';
 const sessionizeEventId = process.env.SESSIONIZE_EVENT_ID ?? '4m3gwjp1';
 const sessionizeApiBase = process.env.SESSIONIZE_API_BASE ?? 'https://sessionize.com/api/v2';
 
 const fallbackSite = {
   brand: 'BRSSUG',
   title: 'BRSSUG',
-  description: 'Community talks, meetups, and speaker updates that stay synced from Meetup and Sessionize.',
+  description: 'Community talks and speaker updates that stay synced from Sessionize.',
   meetupUrl: 'https://www.meetup.com/',
   sessionizeUrl: 'https://sessionize.com/',
   lastSyncedAt: new Date().toISOString(),
@@ -40,20 +38,6 @@ function stripHtml(value) {
     .trim();
 }
 
-function normalizeMeetupEventGql(node, groupName, isPast) {
-  const startsAt = node.dateTime ?? null;
-  return {
-    id: String(node.id ?? crypto.randomUUID()),
-    title: node.title ?? 'Untitled event',
-    url: node.eventUrl ?? `https://www.meetup.com/${meetupUrlname}/events/`,
-    startsAt,
-    summary: stripHtml(node.description) || 'See Meetup for event details.',
-    organizer: groupName ?? 'BRSSUG',
-    type: 'meetup',
-    status: isPast ? 'past' : 'scheduled'
-  };
-}
-
 function normalizeSpeaker(item) {
   return {
     id: String(item.id ?? item.name ?? crypto.randomUUID()),
@@ -75,56 +59,6 @@ function normalizeSession(item) {
     endsAt: item.endsAt ?? item.endDateTime ?? null,
     speakers: speakers.map((speaker) => speaker.name ?? speaker.fullName ?? speaker.id ?? '').filter(Boolean)
   };
-}
-
-async function fetchMeetupEvents() {
-  if (!meetupToken) {
-    return null; // no token → keep existing seed data
-  }
-
-  const query = `
-    query($urlname: String!) {
-      groupByUrlname(urlname: $urlname) {
-        name
-        upcomingEvents(input: { first: 5 }) {
-          edges { node { id title eventUrl description dateTime } }
-        }
-        pastEvents(input: { first: 10 }) {
-          edges { node { id title eventUrl description dateTime } }
-        }
-      }
-    }
-  `;
-
-  const response = await fetch('https://api.meetup.com/gql', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${meetupToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, variables: { urlname: meetupUrlname } })
-  });
-
-  if (!response.ok) {
-    throw new Error(`Meetup API failed with ${response.status}`);
-  }
-
-  const payload = await response.json();
-  if (payload.errors) {
-    throw new Error(payload.errors.map((e) => e.message).join(', '));
-  }
-
-  const group = payload?.data?.groupByUrlname;
-  if (!group) throw new Error('Group not found in Meetup API response');
-
-  const upcoming = (group.upcomingEvents?.edges ?? []).map((e) =>
-    normalizeMeetupEventGql(e.node, group.name, false)
-  );
-  const past = (group.pastEvents?.edges ?? []).map((e) =>
-    normalizeMeetupEventGql(e.node, group.name, true)
-  );
-
-  return [...upcoming, ...past].filter((e) => e.title);
 }
 
 async function fetchSessionizeCollection(eventId, endpointNames) {
@@ -215,22 +149,10 @@ async function fetchSessionizeData() {
 
 async function main() {
   const currentSite = await readJson('src/data/generated/site.json', fallbackSite);
-  const currentEvents = await readJson('src/data/generated/events.json', []);
   const currentSpeakers = await readJson('src/data/generated/speakers.json', []);
 
-  let nextEvents = currentEvents;
   let nextSpeakers = currentSpeakers;
   const warnings = [];
-
-  try {
-    const meetupEvents = await fetchMeetupEvents();
-
-    if (meetupEvents && meetupEvents.length > 0) {
-      nextEvents = meetupEvents;
-    }
-  } catch (error) {
-    warnings.push(`Meetup sync skipped: ${error.message}`);
-  }
 
   try {
     const sessionizeSpeakers = await fetchSessionizeData();
@@ -252,14 +174,13 @@ async function main() {
   };
 
   await writeJson('src/data/generated/site.json', nextSite);
-  await writeJson('src/data/generated/events.json', nextEvents);
   await writeJson('src/data/generated/speakers.json', nextSpeakers);
 
   for (const warning of warnings) {
     console.warn(warning);
   }
 
-  console.log(`Updated ${nextEvents.length} event(s) and ${nextSpeakers.length} speaker profile(s).`);
+  console.log(`Updated ${nextSpeakers.length} speaker profile(s).`);
 }
 
 main().catch((error) => {

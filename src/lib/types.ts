@@ -16,18 +16,6 @@ export type SiteData = {
   syncStatus: string;
 };
 
-export type MeetupEvent = {
-  id: string;
-  title: string;
-  url: string;
-  startsAt: string | null;
-  summary: string;
-  organizer: string;
-  type: 'meetup';
-  status: string;
-  recordingUrl?: string;
-};
-
 export type SpeakerSession = {
   title: string;
   startsAt: string | null;

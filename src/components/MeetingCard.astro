@@ -6,7 +6,7 @@ type MeetingData = {
   date: Date;
   speaker: string;
   bio?: string;
-  meetupUrl: string;
+  meetupUrl?: string;
   youtubeUrl?: string;
   sponsor?: string;
 };
@@ -17,21 +17,24 @@ type Props = {
 };
 
 const { meeting, speakerPicture } = Astro.props;
-const { title, date, speaker, meetupUrl, youtubeUrl, sponsor } = meeting.data;
+const { title, date, speaker, bio, meetupUrl, youtubeUrl, sponsor } = meeting.data;
 const today = new Date();
 const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
 const isPast = date < todayUtc;
 
 // Strip markdown from body for plain-text excerpt
-const abstract = meeting.body
+const fullText = meeting.body
   ? meeting.body
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
       .replace(/[*_`#>~]+/g, '')
       .replace(/\s+/g, ' ')
       .trim()
-      .slice(0, 220)
-      .replace(/\s\S*$/, '') + (meeting.body.length > 220 ? '…' : '')
   : '';
+const isTruncated = fullText.length > 220;
+const excerpt = isTruncated
+  ? fullText.slice(0, 220).replace(/\s\S*$/, '')
+  : fullText;
+const remainder = isTruncated ? fullText.slice(excerpt.length) : '';
 ---
 
 <article class="card meeting-card">
@@ -50,14 +53,25 @@ const abstract = meeting.body
 
   <h3 class="meeting-card-title">{title}</h3>
 
-  {abstract && <p class="meeting-abstract">{abstract}</p>}
+  {fullText && (
+    isTruncated
+      ? (
+        <details class="meeting-abstract-details">
+          <summary class="meeting-abstract">{excerpt}<span class="meeting-abstract-ellipsis">…</span></summary>
+          <p class="meeting-abstract meeting-abstract-remainder">{remainder}</p>
+        </details>
+      )
+      : <p class="meeting-abstract">{fullText}</p>
+  )}
+  {bio && <p class="meeting-speaker-bio">{bio}</p>}
   {sponsor && <p class="meeting-sponsor">Sponsored by {sponsor}</p>}
 
   <div class="card-links">
-    {!isPast
-      ? <a class="card-link card-link--primary" href={meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
-      : <a class="card-link" href={meetupUrl} target="_blank" rel="noreferrer">View on Meetup</a>
-    }
+    {meetupUrl && (
+      !isPast
+        ? <a class="card-link card-link--primary" href={meetupUrl} target="_blank" rel="noreferrer">RSVP on Meetup</a>
+        : <a class="card-link" href={meetupUrl} target="_blank" rel="noreferrer">View on Meetup</a>
+    )}
     {youtubeUrl && (
       <a class="card-link card-link--youtube" href={youtubeUrl} target="_blank" rel="noreferrer">Watch recording</a>
     )}

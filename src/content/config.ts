@@ -9,7 +9,7 @@ const meetings = defineCollection({
     speaker: z.string(),
     bio: z.string().optional(),
     sessionizeId: z.string().optional(),
-    meetupUrl: z.string(),
+    meetupUrl: z.string().optional(),
     youtubeUrl: z.string().optional(),
     sponsor: z.string().optional(),
   }),

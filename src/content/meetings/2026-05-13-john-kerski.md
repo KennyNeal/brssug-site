@@ -6,4 +6,4 @@ sessionizeId: "cd09f05b-008c-4109-9959-0513a75346b6"
 meetupUrl: "https://www.meetup.com/baton-rouge-net-and-sql-server-user-groups/"
 ---
 
-With the introduction of Power BI Developer Mode, the game has changed for data professionals. This session will explore how Power BI development practices can be enhanced using the PBIP format and the new capabilities it brings. We'll dive into how Developer Mode supports better version control and share tips for leveraging this feature to accelerate your team's work.
+Power BI Developer Mode changes how Power BI development works day to day. This session covers the PBIP file format and what it enables, how Developer Mode improves version control for Power BI projects, and practical tips for using it on a team.

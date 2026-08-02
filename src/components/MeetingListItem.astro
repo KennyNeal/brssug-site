@@ -1,0 +1,28 @@
+---
+import { formatDate } from '../lib/format';
+
+type Props = {
+  meeting: { data: { title: string; date: Date; speaker: string; youtubeUrl?: string } };
+  speakerPicture?: string;
+};
+
+const { meeting, speakerPicture } = Astro.props;
+const { title, date, speaker, youtubeUrl } = meeting.data;
+---
+
+<li class="meeting-list-item">
+  <span class="meeting-list-date">{formatDate(date)}</span>
+  <span class="meeting-list-title">{title}</span>
+  {speaker !== 'TBD' && (
+    <span class="meeting-list-speaker-group">
+      <span class="meeting-list-speaker">{speaker}</span>
+      {speakerPicture
+        ? <img src={speakerPicture} alt={speaker} class="meeting-list-photo" width="28" height="28" />
+        : <div class="meeting-list-photo meeting-list-photo-initial" aria-hidden="true">{speaker.slice(0, 1)}</div>
+      }
+    </span>
+  )}
+  {youtubeUrl && (
+    <a class="meeting-list-link" href={youtubeUrl} target="_blank" rel="noreferrer">Watch →</a>
+  )}
+</li>

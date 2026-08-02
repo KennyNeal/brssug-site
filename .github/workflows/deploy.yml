@@ -36,8 +36,6 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          MEETUP_TOKEN: ${{ secrets.MEETUP_TOKEN }}
-          MEETUP_NETWORK_URLNAME: ${{ secrets.MEETUP_NETWORK_URLNAME }}
           SESSIONIZE_EVENT_ID: ${{ secrets.SESSIONIZE_EVENT_ID }}
           SESSIONIZE_API_BASE: ${{ secrets.SESSIONIZE_API_BASE }}
 
