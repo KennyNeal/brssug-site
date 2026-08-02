@@ -8,7 +8,11 @@ It uses Astro because the site needs two things at once:
 2. Build-time syncing from Sessionize so speaker data stays current.
 
 Meeting info itself (title, date, speaker, links) lives as one markdown file per
-meeting in `src/content/meetings/` — see `_TEMPLATE.md` in that folder.
+meeting in `src/content/meetings/` — see `_TEMPLATE.md` in that folder. To hand off
+a new meeting without writing the file by hand, open a "New meeting" issue (uses
+`.github/ISSUE_TEMPLATE/new-meeting.yml`) — a workflow turns it into a PR automatically
+(see "Create a meeting from an issue" below). The description field can be left blank
+if a Sessionize speaker GUID is given; it's pulled from Sessionize automatically.
 
 ## What is already set up
 
@@ -57,3 +61,14 @@ configured, the email step only fires for meeting files added or changed in that
 ## GitHub Pages
 
 The workflow in `.github/workflows/deploy.yml` builds on push to `main`, on a schedule, and on manual dispatch. Add the secrets above to make the deployed site sync live data and cross-post meetings automatically.
+
+## Create a meeting from an issue
+
+`.github/workflows/create-meeting-from-issue.yml` runs whenever an issue is opened with the
+`meeting` label (applied automatically by the "New meeting" issue template). It parses the
+issue's fields, writes a `src/content/meetings/*.md` file, runs a full build to make sure the
+new file doesn't break anything, then opens a PR (with `Closes #<issue>` in the body, so the
+issue closes automatically once the PR is merged). If parsing fails (missing title/date/speaker,
+or a badly formatted date) or the build fails, it comments on the issue explaining what to fix
+instead of opening a broken PR. `main` is a protected branch, so this always goes through a PR —
+nothing is pushed directly.
